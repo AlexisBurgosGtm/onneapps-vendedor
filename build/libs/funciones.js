@@ -1,5 +1,5 @@
 let funciones = {
-    shareApp :()=>{
+    shareApp :async ()=>{
           const shareData = {
             title: 'ONNE VENDEDOR',
             text: 'App para Vendedor (Onne Systems)',
