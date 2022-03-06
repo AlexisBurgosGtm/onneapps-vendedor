@@ -16,6 +16,24 @@ function getView(){
                         <img src="./favicon.png" width=60 height=60>
                     </div>
                     <div class="card-body">
+                            <div class="form-group">
+                                
+                                <div class="input-group">
+                                    <label></label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fal fa-globe"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control border-secondary border-top-0 border-right-0 border-left-0" type="text" id="txtToken" placeholder="Escriba su token..." required="true">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info hand" id="btnGetToken">
+                                            <i class="fal fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
                         <form class="" id="frmLogin" autocomplete="off">
                             <div class="form-group">
                                 <select class="negrita form-control border-secondary border-top-0 border-right-0 border-left-0" id="cmbSucursal">
@@ -86,8 +104,49 @@ function getView(){
 
 function addListeners(){
     
-
     let frmLogin = document.getElementById('frmLogin');
+    frmLogin.style = 'visibility:hidden';
+
+    let btnGetToken = document.getElementById('btnGetToken');
+    btnGetToken.addEventListener('click',()=>{
+        
+        btnGetToken.disabled = true;
+        btnGetToken.innerHTML = '<i class="fal fa-arrow-right fa-spin"></i>';
+
+        frmLogin.style = 'visibility:hidden';
+
+        let token = document.getElementById('txtToken').value || 'SN';
+        if(token=='SN'){
+            funciones.AvisoError('Escriba el token de su empresa');
+            btnGetToken.disabled = false;
+            btnGetToken.innerHTML = '<i class="fal fa-arrow-right"></i>';
+
+            return;
+        };
+
+        getEmpresasToken(token)
+        .then((data)=>{
+            console.log(data);
+            let str = '';
+            data.recordset.map((rows)=>{
+                str += `<option value='${rows.CODSUCURSAL}'>${rows.NOMBRE}</option>`;
+            });
+            document.getElementById('cmbSucursal').innerHTML = str; 
+            frmLogin.style = "visibility:visible"; 
+            btnGetToken.disabled = false;
+            btnGetToken.innerHTML = '<i class="fal fa-arrow-right"></i>';
+
+        })
+        .catch(()=>{
+            funciones.AvisoError('Token inválido o error al cargar empresas');
+            frmLogin.style = 'visibility:hidden';
+            btnGetToken.disabled = false;
+            btnGetToken.innerHTML = '<i class="fal fa-arrow-right"></i>';
+
+        })
+    });
+
+    
     let btnIniciar = document.getElementById('btnIniciar');
     frmLogin.addEventListener('submit',(e)=>{
         e.preventDefault();
@@ -110,8 +169,9 @@ function addListeners(){
     });
 
 
+    
     //carga las sucursales directamente desde código
-    document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
+    //document.getElementById('cmbSucursal').innerHTML = funciones.getComboSucursales();
 
 };
 
@@ -125,11 +185,36 @@ function InicializarVista(){
 };
 
 
+function getEmpresasToken(token){
+
+    return new Promise((resolve,reject)=>{
+        axios.post('/usuarios/empresas', {
+            token:token
+        })
+        .then((response) => {
+            
+            const data = response.data;
+            if(Number(data.rowsAffected[0])>0){
+                resolve(data);             
+            }else{
+                reject();
+            }
+          
+        }, (error) => {
+            //funciones.AvisoError('Error en la solicitud');
+            reject();
+        });
+    })
+
+};
+
+
 async function almacenarCredenciales(){
     const cred = new PasswordCredential({
         id: document.getElementById('txtUser').value,
         name: document.getElementById('cmbSucursal').value,
-        password: document.getElementById('txtPass').value
+        password: document.getElementById('txtPass').value,
+        token: document.getElementById('txtToken').value
     })
 
     await navigator.credentials.store(cred)
@@ -138,17 +223,14 @@ async function almacenarCredenciales(){
 
 function getCredenciales(){
    if ('credentials' in navigator) {
-  navigator.credentials.get({password: true})
-  .then(function(creds) {
-
-      console.log(creds);
-    //Do something with the credentials.
-    document.getElementById('txtUser').value = creds.id;
-    document.getElementById('cmbSucursal').value = creds.name;
-    document.getElementById('txtPass').value = creds.password;
-
-  });
+        navigator.credentials.get({password: true})
+        .then(function(creds) {
+            //Do something with the credentials.
+            document.getElementById('txtUser').value = creds.id;
+            document.getElementById('cmbSucursal').value = creds.name;
+            document.getElementById('txtPass').value = creds.password;
+        });
     } else {
     //Handle sign-in the way you did before.
     };
-}
+};

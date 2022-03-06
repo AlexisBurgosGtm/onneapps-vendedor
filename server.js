@@ -39,7 +39,7 @@ router.use(function (req,res,next) {
         // Set to true if you need the website to include cookies in the requests sent
       res.setHeader('Access-Control-Allow-Credentials', true);
   */
-  console.log("/" + req.toString());
+  //console.log("/" + req.toString());
   next();
 });
 

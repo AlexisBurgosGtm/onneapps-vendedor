@@ -64,7 +64,7 @@ let classNavegar = {
         `
         let strMenu =   ``
                     rootMenu.innerHTML = strMenu;
-                    rootMenuFooter.innerHTML = strFooter;
+                    //rootMenuFooter.innerHTML = strFooter;
            
                      // handlers del menu
                    
@@ -106,6 +106,9 @@ let classNavegar = {
 
                     //classNavegar.ventasMapaClientes();
                     classNavegar.inicioVendedorListado();
+
+                    btnMenuVendedor.style = 'visibility:visible';
+
              
     },
     inicioVendedorListado :async ()=>{

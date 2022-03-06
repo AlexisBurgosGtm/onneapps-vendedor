@@ -13,9 +13,11 @@ let apigen = {
                             GlobalTipoUsuario = rows.TIPO;
                             GlobalCoddoc= rows.CODDOC;
                             GlobalCodSucursal = sucursal;
+                            GlobalEmpnit= sucursal
                             GlobalSistema = sucursal;
                             GlobalObjetivoVenta = Number(rows.OBJETIVO);
-                               
+                              
+
                             classNavegar.inicioVendedor();   
                         }        
                     })
@@ -26,6 +28,7 @@ let apigen = {
                     GlobalTipoUsuario = '';
                     GlobalCoddoc= '';
                     GlobalObjetivoVenta =0;
+                    GlobalEmpnit = '';
                     funciones.AvisoError('Usuario o Contraseña incorrectos, intente seleccionando la sucursal a la que pertenece');
                     reject();
                 }

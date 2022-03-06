@@ -1,8 +1,8 @@
-let GlobalToken = 'DISTESTRELLA';
-let GlobalEmpnit = 'DISTESTRELLA000';
-let GlobalEmpNombre = 'DISTRIBUIDORA PENIEL';
+let GlobalToken = '';
+let GlobalEmpnit = '';
+let GlobalEmpNombre = '';
 let dataEmpresas = [
-                        {codsucursal:"DISTESTRELLA000",nomsucursal:"DISTRIBUIDORA ESTRELLA",color:"success"}
+                        {codsucursal:"",nomsucursal:"",color:"success"}
                     ];
 
 let root = document.getElementById('root');

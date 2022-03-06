@@ -2,6 +2,21 @@ const execute = require('./connection');
 const express = require('express');
 const router = express.Router();
 
+
+// OBTIENE LOS USUARIOS DE UN DETERMINADO TIPO
+router.post("/empresas", async(req,res)=>{
+    
+    const {token} = req.body;
+    
+    let qry ='';
+    qry = `SELECT CODSUCURSAL, NOMBRE, COLOR
+         FROM ME_SUCURSALES
+          WHERE TOKEN='${token}'; `;     
+    
+    execute.Query(res,qry);
+
+});
+
 // OBTIENE LOS USUARIOS DE UN DETERMINADO TIPO
 router.post("/listado", async(req,res)=>{
     

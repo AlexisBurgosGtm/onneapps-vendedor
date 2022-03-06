@@ -1,4 +1,19 @@
 let funciones = {
+    shareApp :()=>{
+          const shareData = {
+            title: 'ONNE VENDEDOR',
+            text: 'App para Vendedor (Onne Systems)',
+            url: 'https://onneapps-vendedor.herokuapp.com/'
+          }
+
+          try {
+              await navigator.share(shareData)
+              //resultPara.textContent = 'MDN shared successfully'
+          } catch(err) {
+              //resultPara.textContent = 'Error: ' + err
+              console.log('Error al compartir: ' + err);
+          }
+    },
     enviarPedidoWhatsapp2: function(fecha,coddoc,correlativo){
     swal({
       text: 'Escriba el número a donde se enviará:',

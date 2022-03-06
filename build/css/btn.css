@@ -169,6 +169,38 @@ background: radial-gradient(circle, rgba(10,10,10,1) 0%, rgba(85,17,0,1) 97%);
     visibility: hidden;
 }
 
+.btn-bottom-left { 
+  position: fixed;
+  z-index: 1088;
+  left: 21px;
+  bottom: 15px;
+}
+
+.btn-bottom-right { 
+  position: fixed;
+  z-index: 888;
+  right: 21px;
+  bottom: 15px;
+}
+
+.btn-bottom-middle { 
+  position: fixed;
+  z-index: 888;
+  right: 50%;
+  left: 50%;
+  bottom: 15px;
+}
+
+.btn-bottom-menu { 
+  position: fixed;
+  z-index: 888;
+  right: 50%;
+  left: 50%;
+  bottom: 10px;
+}
+
+
+
 /* BOTON FLOTANTE ESQUINA IZQUIERDA */
 #fixed-btn3 { 
   position: fixed;

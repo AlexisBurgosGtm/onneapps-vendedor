@@ -41,7 +41,14 @@ btnMenuInicioSalir.addEventListener('click',()=>{
 let btnCerrarModalMenuLateral = document.getElementById('btnCerrarModalMenuLateral');
 btnCerrarModalMenuLateral.addEventListener('click',()=>{
   $('#modalMenu').modal('hide');
-})
+});
+
+let btnMenuVendedor = document.getElementById('btnMenuVendedor');
+btnMenuVendedor.addEventListener('click',()=>{
+    $('#modalMenuVendedor').modal('show');
+});
+
+btnMenuVendedor.style = 'visibility:hidden';
 
 
 function setLog(msg,idcontainer){
