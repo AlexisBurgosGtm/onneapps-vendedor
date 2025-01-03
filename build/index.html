@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            ONNE VENDEDOR
+        </title>
+        <meta name="description" content="Blank">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+        <!-- Call App Mode on ios devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- Remove Tap Highlight on Windows Phone IE -->
+        <meta name="msapplication-tap-highlight" content="no">
+        
+        <meta name="google" content="notranslate" />
+
+        <!--meta API NOTIFICATION TRIGGER -->
+        <meta http-equiv="origin-trial" content="AoXc696Tyzx1VEktyG/8XWPQy/CkjgHlk7LyHMUw0lq9q2sptFhhDxXboCDXJ8sEj51y6N/nMU0nti3oyb8FlgQAAACAeyJvcmlnaW4iOiJodHRwczovL21lcmNhZG9zZWZlY3Rpdm9zLmhlcm9rdWFwcC5jb206NDQzIiwiZmVhdHVyZSI6Ik5vdGlmaWNhdGlvblRyaWdnZXJzIiwiZXhwaXJ5IjoxNTk1OTgwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
+
+        <!-- base css -->
+        <link rel="stylesheet" media="screen, print" href="css/vendors.bundle.css">
+        <link rel="stylesheet" media="screen, print" href="css/app.bundle.css">
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="apple-touch-icon" sizes="180x180" href="./favicon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+        <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="stylesheet" media="screen, print" href="css/.../styles.css">
+        <link rel="stylesheet" media="screen, print" href="./css/btn.css">
+
+        <link rel="stylesheet" href="./libs/leaflet/leaflet.css">
+        <link rel="stylesheet" href="./libs/noty/noty.min.css">
+
+        
+	<!-- service worker -->
+	<meta name="application-name" content="ONNE VENTAS" />
+	<meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+
+    
+    </head>
+    <body class="mod-bg-2 nav-function-top header-function-fixed nav-function-fixed"><!--mod-disable-animation-->
+        <!-- libreria de funciones propias
+        <script src="https://alexisburgosservice.herokuapp.com/funciones.js"></script>
+        -->
+
+        <!-- DOC: script to save and load page settings -->
+        <script>
+            /**
+             *	This script should be placed right after the body tag for fast execution 
+             *	Note: the script is written in pure javascript and does not depend on thirdparty library
+             **/
+            'use strict';
+
+            var classHolder = document.getElementsByTagName("BODY")[0],
+                /** 
+                 * Load from localstorage
+                 **/
+                themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+                themeURL = themeSettings.themeURL || '',
+                themeOptions = themeSettings.themeOptions || '';
+            /** 
+             * Load theme options
+             **/
+            if (themeSettings.themeOptions)
+            {
+                classHolder.className = themeSettings.themeOptions;
+                console.log("%c✔ Theme settings loaded", "color: #148f32");
+            }
+            else
+            {
+                console.log("Heads up! Theme settings is empty or does not exist, loading default settings...");
+            }
+            if (themeSettings.themeURL && !document.getElementById('mytheme'))
+            {
+                var cssfile = document.createElement('link');
+                cssfile.id = 'mytheme';
+                cssfile.rel = 'stylesheet';
+                cssfile.href = themeURL;
+                document.getElementsByTagName('head')[0].appendChild(cssfile);
+            }
+            /** 
+             * Save to localstorage 
+             **/
+            var saveSettings = function()
+            {
+                themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function(item)
+                {
+                    return /^(nav|header|mod|display)-/i.test(item);
+                }).join(' ');
+                if (document.getElementById('mytheme'))
+                {
+                    themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
+                };
+                localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
+            }
+            /** 
+             * Reset settings
+             **/
+            var resetSettings = function()
+            {
+                localStorage.setItem("themeSettings", "");
+            }
+
+        </script>
+
+        <!-- BEGIN Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="page-inner">
+                <!-- BEGIN Left Aside -->
+  
+                <!-- END Left Aside -->
+                <div class="page-content-wrapper">
+                    <!-- BEGIN Page Header -->
+                    <!-- hice una modificacion en el css del app bundle, 
+                        cambie la clase page-header bajando el height de 4 a 2 -->
+                    <header class="page-header bg-secondary" role="banner">
+                        <!-- we need this logo when user switches to nav-function-top -->
+                        <div class="page-logo">
+                            <a href="#" class="page-logo-link press-scale-down d-flex align-items-center">
+                                <span class="page-logo-text mr-1" id="txtNomEmpresa"></span>                          
+                            </a>
+                        </div>
+
+                                                      
+                        <div class="ml-auto d-flex">
+                            
+                                              
+
+                            <!-- app settings hidden-md-down-->
+                            <div class="hidden">
+                                <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
+                                    <i class="fal fa-cog"></i>
+                                </a>
+                            </div>
+
+                            
+                            <div>
+                                <a href="#" data-toggle="dropdown" title="" class="hidden header-icon d-flex align-items-center justify-content-center ml-2">
+                                    <img src="img/logo.png" class="profile-image rounded-circle" alt="Menú">
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
+                                    <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
+                                        <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
+                                            <span class="mr-2">
+                                                <img src="img/logo.png" class="rounded-circle profile-image" alt="Usuario">
+                                            </span>
+                                            <div class="info-card-text">
+                                                <div class="fs-lg text-truncate text-truncate-lg" id="divUsuario">Usuario</div>
+                                                <span class="text-truncate text-truncate-md opacity-80" id="lbTipo">correo@mercadosefectivos.com</span>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider m-0"></div>
+                                    
+                                    <div id="rootMenu">
+                                                                           
+                                    
+                                    </div>
+                                    
+                                    <div class="dropdown-divider m-0"></div>
+
+                                    <a class="dropdown-item fw-500 pt-3 pb-3 bg-danger text-white" data-toggle="dropdown" href="#" id="btnMenuInicioSalir">
+                                        <span>SALIR (x)</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </header>
+                    <!-- END Page Header -->
+                    <!-- BEGIN Page Content -->
+                    <!-- the #js-page-content id is needed for some plugins to initialize -->
+                    <main id="js-page-content" role="main" class="page-content">
+                      <div id="root">
+
+                      </div>
+                    </main>
+                        <!-- Internet Connection Status-->
+                        <div class="internet-connection-status" id="internetStatus"></div>
+
+                    <div id="" class="shortcut-menu align-left">
+                         <button class="btn btn-danger btn-xl shadow" id="btnInstalarApp">
+                             <i class="fal fa-download"></i>Instalar
+                         </button>
+                    </div>
+
+                    <div class="leftbutton2">
+                        <div class="row">
+                            <button class="btn btn-outline-secondary btn-lg btn-icon rounded-circle shadow" id="btnPedidosPend">
+                                <i class="fal fa-bell"></i>0
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-info btn-lg btn-icon rounded-circle shadow" id="btnListaP">
+                                <i class="fal fa-search"></i>
+                            </button>
+                        </div>
+                   </div>
+
+                    <!-- boton menu medio -->
+                    <button class="btn btn-outline-info btn-circle btn-xl shadow hand btn-bottom-menu" id="btnMenuVendedor">
+                        <img src="./favicon.png" width="40px" height="40px">
+                    </button>                   
+                    
+                    <!-- this overlay is activated only when mobile menu is triggered -->
+                    <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
+
+                    <!-- BEGIN Page Footer -->
+                    <footer class="page-footer bg-white foot" role="contentinfo" id="footContainer">
+                        <!--
+                        <div class="d-flex align-items-center flex-1 text-muted">    
+                        -->
+                        <div class="d-flex align-items-left" id="rootMenuFooter">
+                            <b class="text-dark">ONNE VENTAS</b>
+                                
+                        </div>
+
+                    </footer>
+                    <!-- END Page Footer -->
+                    
+                    <!-- BEGIN Shortcuts -->
+                    
+                </div>
+                
+            </div>
+        </div>
+        <!-- END Page Wrapper -->
+
+        <!-- MENU LATERAL DERECHO -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalMenu">
+            <div class="modal-dialog modal-dialog-right modal-lg">
+                <div class="modal-content">
+                    <div class="dropdown-header bg-danger d-flex justify-content-center align-items-center w-100">
+                        <h4 class="m-0 text-center color-white" id="lbMenuTitulo">
+                            Opciones
+                            <small class="mb-0 opacity-80">Opciones</small>
+                        </h4>
+                        
+                        
+                        <button type="button" class="close text-white position-absolute pos-top pos-right p-2 m-1 mr-2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="" id="rootMenuLateral">
+                                                        
+                            
+                            
+                        </div>
+                        <span id="saving"></span>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button class="btn btn-sm btn-danger position-absolute pos-bottom pos-right " id="btnCerrarModalMenuLateral"><<- Regresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+        <!-- LISTA DE PRECIOS -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true" id="modalListaPrecios">
+            <div class="modal-dialog modal-dialog-right modal-lg">
+                <div class="modal-content">
+                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
+                        <h4 class="m-0 text-center " id="">
+                            Lista de Precios
+                            <small class="mb-0 opacity-80">Búsqueda rápida de Precios</small>
+                        </h4>
+                        <button type="button" class="close text-white position-absolute pos-top pos-right p-2 m-1 mr-2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0">
+                        
+                            <div class="input-group">
+                                <input id="txtBProducto" type="text" ref="txtBusqueda" class="form-control col-7 shadow border-secondary border-left-0 border-right-0 border-top-0" placeholder="Buscar código o descripción..." aria-label="" aria-describedby="button-addon4" />
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary waves-effect waves-themed shadow" type="button" id="btnBProducto">
+                                        <i class="fal fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        <div class="" id="">
+                            <table class="table table-responsive table-striped table-hover">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <td>Producto</td>
+                                        <td>Precio</td>                         
+                                    </tr>
+                                </thead>
+                                <tbody id="tblPre">
+                                
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button class="btn btn-sm btn-danger position-absolute pos-bottom pos-right" data-dismiss="modal">
+                            <<- Regresar
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESCARGAS -->
+        <div class="modal fade js-modal-settings card modal-backdrop-transparent border-top-rounded border-bottom-rounded" tabindex="-1" role="dialog" aria-hidden="true" id="modalSync">
+            <div class="modal-dialog modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
+                        <img src="./favicon.png" width="40" height="40">
+                        <h3 class="m-0 text-center color-secondary">
+                            Descarga de Catálogos
+                        </h3>
+                       
+                    </div>
+                    <div class="modal-body p-4">
+                        
+                            <div class="row">
+                                
+                                <div class="col-6">
+                                    <button class="btn btn-outline-success shadow btn-xl" id="btnDownloadProductos">
+                                        <i class="fal fa-shopping-cart"></i>
+                                        Bajar <br>
+                                        Productos
+                                    </button>
+                                </div>                                           
+                                <div class="col-6">
+                                    <button class="btn btn-outline-info shadow btn-xl" style="width: 50; height: 50;" id="btnDownloadClientes">
+                                        <i class="fal fa-user"></i>
+                                        Bajar  <br>
+                                        Clientes
+                                    </button>
+                                </div>
+                            </div>
+
+                        
+                                    
+                        <br><br><br>
+                        
+                        <span id="saving"></span>
+                    </div>
+                    <div class="moda-footer">
+                        <button class="btn btn-outline-secondary btn-xl col-12" data-dismiss="modal">
+                            <i class="fal fa-check"></i>
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <!-- PEDIDOS PENDIENTES -->
+        <div class="modal fade" id="ModalPendientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-right" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label class="modal-title text-info h3" id="">Pedidos Pendientes de Enviar</label>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="">
+                            <label class="negrita text-danger">Para poder editar un pedido, primero debe enviarlo</label>
+                        </div>
+                        <div class="table-reponsive">
+                            <table class="table table-responsive table-hover table-striped table-bordered shadow">
+                                <thead class="bg-info text-white">
+                                    <td>Fecha</td>
+                                    <td>Cliente</td>
+                                    <td>Importe</td>
+                                    <td></td>
+                                </thead>
+                                <tbody id="tblPedidosPendientes"></tbody>
+                            </table>
+                        </div>
+                        <button class="btn form-control shadow" data-dismiss="modal">
+                            Cerrar(x)
+                        </button>
+                    </div>
+
+                
+                </div>
+            </div>
+        </div>
+
+        <!-- WAIT FORM -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent shadow" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" id="modalWait">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center w-100">
+                        <img width="30" height="30" src="./favicon.png">
+                        <h3 class="m-0 text-center color-white">
+                            Cargando datos...
+                            <small class="mb-0 opacity-80">Espere por favor</small>
+                        </h3>
+                        
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="" id="rootWait">
+                                                                                   
+                            
+                        </div>
+                        <div class="text-center">
+                            <div class="spinner-border text-danger" role="status"><span class="sr-only">Loading...</span></div>
+                        </div>
+                        
+                        <span id="saving"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal" id="btnCerrarModalWait">
+                            Cerrar Ventana
+                        </button>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+     
+        <!-- menu vendedor -->
+        <div class="modal fade js-modal-settings card modal-backdrop-transparent border-top-rounded border-bottom-rounded" tabindex="-1" role="dialog" aria-hidden="true" id="modalMenuVendedor">
+            <div class="modal-dialog modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="dropdown-header d-flex justify-content-center align-items-center w-100">
+                        <img src="./favicon.png" width="40" height="40">
+                        <h3 class="m-0 text-center color-secondary">
+                            Menú Principal
+                        </h3>
+                    
+                    </div>
+                    <div class="modal-body p-4">
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card shadow card-rounded btn btn-lg btn-outline-info col-12"  id="btnMenu2VendedorClientes" data-dismiss="modal">
+                                    <div class="card-body" style="font-size: 130%;">
+                                        <i class="fal fa-shopping-cart"></i>
+                                        Clientes
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card shadow card-rounded btn btn-lg btn-outline-success col-12" id="btnMenu2VendedorPedidos" data-dismiss="modal">
+                                    <div class="card-body" style="font-size: 130%;">
+                                        <i class="fal fa-chart-line"></i>
+                                        Logro
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>    
+
+                        <div class="row"></div>
+                        <hr class="solid">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card shadow card-rounded btn btn-lg btn-outline-warning col-12" id="btnMenu2VendedorLogro" data-dismiss="modal">
+                                    <div class="card-body" style="font-size: 130%;">
+                                        <i class="fal fa-chart-pie"></i>
+                                        Estadística
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card shadow card-rounded btn btn-lg btn-outline-secondary col-12"  id="btnMenu2VendedorSync" data-dismiss="modal">
+                                    <div class="card-body" style="font-size: 130%;">
+                                        <i class="fal fa-sync"></i>
+                                        Sincronizar
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="solid">
+
+                        <div class="row">
+                            <button class="btn btn-success btn-lg shadow" onclick="funciones.shareApp()">
+                                <i class="fal fa-share"></i>Compartir App
+                            </button>
+                        </div>
+                                
+                        <span id="saving"></span>
+                    </div>
+                    <div class="moda-footer">
+                        <button class="btn btn-outline-secondary btn-xl col-12" data-dismiss="modal">
+                            <i class="fal fa-arrow-left"></i>
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/vendors.bundle.js"></script>
+        <script src="js/app.bundle.js"></script>
+        <script src="js/../script.js"></script>
+
+        <script src="./controllers/GlobalVars.js"></script>
+
+        <script src="./libs/funciones.js"></script>
+        
+        <script src="./libs/noty/noty.min.js"></script>
+        
+
+        <script src="./libs/sweetalert.min.js"></script>
+        <script src="./libs/axios.min.js"></script>
+        <script src="./libs/leaflet/leaflet.js"></script>
+        
+       <script src="./libs/jsstore/jsstore.min.js"></script>
+       <script src="./libs/jsstore/jsstore.worker.min.js"></script>
+     
+       <script src="./listaprecios.js"></script>
+
+        <script src="./controllers/classNavegar.js"></script>
+        <script src="./controllers/classDb.js"></script>
+        <script src="./models/classEmpleados.js"></script>
+        <script src="./models/classTipoDocumentos.js"></script>
+        
+        <script src="./index.js"></script>
+        <script src="./controllers/dbcalls.js"></script>
+        <script src="./controllers/apicallsx.js"></script>
+
+    </body>
+
+
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "ventasonne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mssql": "^11.0.1",
+    "socket.io": "^4.8.1"
+  },
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexisBurgosGtm/onneapps-vendedor.git"
+  },
+  "author": "Alexis Burgos",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
