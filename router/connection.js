@@ -3,7 +3,11 @@
 	password: 'razors1805.001',
 	server: 'sql5079.site4now.net',
 	database: 'db_a6478c_prueba',
-	pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000}
+	pool: {	max: 100,	min: 0,	idleTimeoutMillis: 30000},
+options: {
+    encrypt: false, // for azure
+    trustServerCertificate: true // change to true for local dev / self-signed certs
+  }
 };
 
 
